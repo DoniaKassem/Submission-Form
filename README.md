@@ -11,7 +11,7 @@ cd my_flask_app
 python -m venv venv
 .\venv\Scripts\Activate.ps1
 pip install -r requirements.txt
-$env:FLASK_APP = "src/app.py"
+$env:FLASK_APP = "src.app"
 flask run
 ```
 
@@ -22,11 +22,26 @@ cd my_flask_app
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
-export FLASK_APP=src/app.py
+export FLASK_APP=src.app
 flask run
 ```
 
 Open `http://127.0.0.1:5000/` in your browser.
+
+## Data Collection
+
+This project now includes a separate data collector process that fetches the
+current temperature for Boulder, Colorado and stores it in SQLite.
+
+Run it manually with:
+
+```powershell
+python -m src.collector
+```
+
+Each run inserts a new row into `weather.sqlite3`, and the web app shows the
+latest readings on the homepage. The recent readings are also exposed as JSON
+at `/api/weather-readings`.
 
 ## Git Setup
 
@@ -46,9 +61,13 @@ This project already includes:
 - `requirements.txt`
 - `Procfile`
 
+The `Procfile` now defines both:
+
+- `web: gunicorn src.app:app`
+- `collector: python -m src.collector`
+
 After installing dependencies, you can update `requirements.txt` with:
 
 ```bash
 pip freeze > requirements.txt
 ```
-
