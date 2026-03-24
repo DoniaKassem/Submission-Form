@@ -10,10 +10,14 @@ from .settings import (
 )
 
 
-def create_app() -> Flask:
+def create_app(config_overrides: dict | None = None) -> Flask:
     app = Flask(__name__)
     app.config["SQLALCHEMY_DATABASE_URI"] = SQLALCHEMY_DATABASE_URI
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = SQLALCHEMY_TRACK_MODIFICATIONS
+    app.config["TESTING"] = False
+
+    if config_overrides:
+        app.config.update(config_overrides)
 
     db.init_app(app)
 

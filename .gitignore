@@ -6,4 +6,5 @@ __pycache__/
 .DS_Store
 run/
 .tmp/
+tmp*/
 weather.sqlite3

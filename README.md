@@ -43,6 +43,19 @@ Each run inserts a new row into `weather.sqlite3`, and the web app shows the
 latest readings on the homepage. The recent readings are also exposed as JSON
 at `/api/weather-readings`.
 
+## Tests
+
+Run the automated tests with:
+
+```powershell
+python -m unittest discover -s tests -v
+```
+
+The project includes:
+
+- a unit test for the weather API parsing logic
+- an integration test for the Flask `/api/weather-readings` endpoint
+
 ## Git Setup
 
 ```bash
